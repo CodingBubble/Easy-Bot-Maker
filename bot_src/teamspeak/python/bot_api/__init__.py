@@ -3,6 +3,7 @@
 import os
 import json
 import bot_api.definitions as definitions
+import time
 
 config_file = open("config.json")
 config = json.load(config_file)
@@ -36,7 +37,7 @@ def Login():
                 ts3conn.clientupdate(["client_nickname="+config["name"]+"2"])
 
         RegisterEvents()
-
+        SendMessageToClients(ts3conn.clientlist(), "Bot is now online")
 
 
 
@@ -50,24 +51,15 @@ def RegisterEvents():
 
 def SendMessageToClients(clients, message):
         for client in clients:
-
                 try:
                         if client["client_type"]!="1":
+                                        ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, client["clid"], message)
+                                        ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT,client["clid"], message)
 
-                                ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, client["clid"], message)
-                                print(client)
                 except Exception as e:
                         print(e)
+                time.sleep(1)
 
-
-
-
-def PokeClients (clients, message):
-        for client in clients:
-                try:
-                        ts3conn.clientpoke(client["clid"], msg=message)
-                except:
-                        pass
 
 
 
