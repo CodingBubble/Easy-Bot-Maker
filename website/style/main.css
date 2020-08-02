@@ -1,0 +1,64 @@
+*{
+  padding: 0;
+  margin: 0;
+  left: 0;
+  top: 0;
+}
+
+
+html, body{
+  height: auto;
+  background-color: #fff;
+  width: 99vw;
+  scroll-behavior: smooth;
+  text-align:center;
+}
+
+
+section{
+  height: 10vh;
+  width: 100%;
+}
+
+a{
+  text-decoration: none;
+}
+
+.headerList{
+  list-style-type: none;
+}
+
+
+.topNavbar{
+  height: 8vh;
+  position: fixed;
+  background-color: #222245;
+  z-index: 100;
+  width: 100%;
+
+}
+
+.headerList li{
+  float: right;
+  padding-right: 10vw;
+  font-size: 5vh;
+  margin-top: 1vh;
+}
+
+.headerList li a{
+    color: #efefef;
+}
+
+
+.headerList li :hover{
+
+    background-color: #dedede;
+    color: #222245;
+    text-decoration: underline;
+    text-decoration-thickness: auto;
+    text-decoration-thickness: from-font;
+}
+
+.mainSection {
+  margin-top: 8vh;
+}
