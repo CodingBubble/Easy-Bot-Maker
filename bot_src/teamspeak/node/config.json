@@ -15,6 +15,14 @@
         "name": "sendtextmessage",
         "args": ["{s}","Das ist die Hilfe"]
       }
+    },
+    {
+      "name": "support",
+      "argNum": "0",
+      "action": {
+        "name": "sendmessagetogroup",
+        "args": ["Server Admin","{s} braucht die Hilfe"]
+      }
     }
 
   ]

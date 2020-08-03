@@ -106,8 +106,10 @@ def EventCallback(sender, **kw):
 
 
 
-def ExecuteAction(Action, Args):
-
+def ExecuteAction(Action:str, Args):
+        Action = Action.lower()
         if Action == "sendtextmessage":
-                print(int(Args[0]), Args[1])
                 ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, int(Args[0]), Args[1])
+
+        if Action == "addservergroup":
+                pass

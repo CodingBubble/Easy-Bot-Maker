@@ -1,5 +1,5 @@
 
-const { TeamSpeak, QueryProtocol  } = require("ts3-nodejs-library")
+const { TeamSpeak, QueryProtocol, TeamSpeakChannel  } = require("ts3-nodejs-library")
 
 const config = require("./config.json")
 const { Command } = require("ts3-nodejs-library/lib/transport/Command")
@@ -18,7 +18,7 @@ const teamspeak = new TeamSpeak({
 
 teamspeak.on("ready", async () => {
   	console.log("Connected")
-	const clients = await teamspeak.clientList()
+	
 
 	Promise.all([
     teamspeak.registerEvent("server"),
@@ -33,7 +33,7 @@ teamspeak.on("ready", async () => {
 	})
 
 
-
+	const clients = await teamspeak.clientList()
 	console.log("Sending Welcome Message to all Players")
 	clients.forEach(client => {
 		if (client.propcache.clientType==0)
@@ -58,12 +58,25 @@ teamspeak.on("error", () => {
 
 
 
-teamspeak.on("textmessage", ev => {
-	const sender = ev.invoker.clid;
-	const msg = ev.msg;
-	var command = msg.split(" ")[0];
-	var args = msg.shift();
-	HandleCommand (command, args, sender)
+teamspeak.on("textmessage", async(ev) => {
+	const sender = ev.invoker.propcache.clientNickname;
+	var msg = ev.msg;
+	if (msg.charAt(0)=='!')
+	{
+		msg = msg.substr(1)
+		var command = msg.split(" ")[0];
+		var args = []
+		try
+		{
+			 args = msg.split(" ").shift();
+		}
+		catch (e)
+		{
+			console.log(e)
+			return
+		}		
+		HandleCommand (command, args, sender)
+	}
 })
 
 
@@ -77,21 +90,22 @@ teamspeak.on("textmessage", ev => {
 
 function HandleCommand(Command, Args, Sender)
 {
+	console.log(Command)
 	config.commands.forEach(command => {	
 			if (command["name"] == Command)
 			{
-				Actionargs = command["action"]["args"].copy()
+				Actionargs = [...command["action"]["args"]]
 				for (var i=0; i!=Actionargs.length; i++)
 				{
-					Actionargs[i] = Actionargs[i].replace("{s}", str(Sender))
+					Actionargs[i] = Actionargs[i].replace(new RegExp("\\{s\\}","g"), Sender);
 					for (var j=0; j!=Args.length; j++)
 					{
-						Actionargs[i] = Actionargs[i].replace("{"+str(j)+"}", Args[j])
+						Actionargs[i] = Actionargs[i].replace((new RegExp("\\{"+j+"\\}", "g")), Args[j]);
 					}
 				}
 
 		
-				ExecuteAction(command["action"]["name"])
+				ExecuteAction(command["action"]["name"], Actionargs)
 			}
 	})
 
@@ -99,14 +113,32 @@ function HandleCommand(Command, Args, Sender)
 }
 
 
-function ExecuteAction (Action, Args)
+async function ExecuteAction (Action, Args)
 {
+
+	Action = Action.toLowerCase()
 	if (Action == "sendtextmessage")
 	{
-		const client = teamspeak.getClientById(Args[0])
-		client.message(Args[0])
+		const client = await teamspeak.getClientByName(Args[0]);
+		
+		client.message(Args[1])
+	}
+	if (Action == "sendmessagetogroup")
+	{
+		const clients = await teamspeak.clientList();
+		const group = Args[0];
+
+		clients.forEach(client => {
+			client.servergroups.forEach(async(GroupId)=>{
+				const Group = await teamspeak.getServerGroupById(GroupId);
+				GroupName = Group.name;				
+				if (client.propcache.clientType==0 && group==GroupName)
+				{		
+					client.message(Args[1])
+				}
+			})
+
+		})
 	}
 
 }
-
-
