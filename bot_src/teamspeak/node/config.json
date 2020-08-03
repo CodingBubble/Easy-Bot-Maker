@@ -1,0 +1,21 @@
+{
+  "host": "127.0.0.1",
+  "login": "serverbot",
+  "password": "ifCoUeEE",
+  "name": "Serverbot",
+  "port": "10011",
+
+
+
+  "commands": [
+    {
+      "name": "help",
+      "argNum": "0",
+      "action": {
+        "name": "sendtextmessage",
+        "args": ["{s}","Das ist die Hilfe"]
+      }
+    }
+
+  ]
+}

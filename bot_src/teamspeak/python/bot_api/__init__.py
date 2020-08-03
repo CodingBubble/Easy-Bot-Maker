@@ -55,7 +55,7 @@ def SendMessageToClients(clients, message):
                         if client["client_type"]!="1":
                                         print(client)
                                         print(ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, client["clid"], message))
-                                        ts3conn.cli
+                                       
 
                 except Exception as e:
                         print(e)
