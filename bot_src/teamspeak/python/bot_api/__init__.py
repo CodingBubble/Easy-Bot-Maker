@@ -45,7 +45,7 @@ def RegisterEvents():
 
         ts3conn.register_for_private_messages(EventCallback)
         ts3conn.register_for_server_events(EventCallback)
-
+        ts3conn.register_for_server_messages(EventCallback)
 
 
 
@@ -53,12 +53,12 @@ def SendMessageToClients(clients, message):
         for client in clients:
                 try:
                         if client["client_type"]!="1":
-                                        ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, client["clid"], message)
-                                        ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT,client["clid"], message)
+                                        print(client)
+                                        print(ts3conn.sendtextmessage(definitions.TextMessageTargetMode.CLIENT, client["clid"], message))
+                                        ts3conn.cli
 
                 except Exception as e:
                         print(e)
-                time.sleep(1)
 
 
 

@@ -412,7 +412,7 @@ class TS3Connection(object):
         :type target: int
         :type msg: str
         """
-        self._send("sendtextmessage", ["targetmode="+str(targetmode), "target="+str(target), "msg="+str(msg)])
+        return self._send("sendtextmessage", ["targetmode="+str(targetmode), "target="+str(target), "msg="+str(msg)])
 
     def servergrouplist(self):
         """
