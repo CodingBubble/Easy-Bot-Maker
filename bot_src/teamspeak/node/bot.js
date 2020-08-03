@@ -123,6 +123,9 @@ async function ExecuteAction (Action, Args)
 		
 		client.message(Args[1])
 	}
+
+
+
 	if (Action == "sendmessagetogroup")
 	{
 		const clients = await teamspeak.clientList();
@@ -140,5 +143,13 @@ async function ExecuteAction (Action, Args)
 
 		})
 	}
+
+	if (Action == "addservergroup")
+	{
+		const client = await teamspeak.getClientByName(Args[0]);
+		console.log(Args)
+		client.addGroups(Args[1])
+	}
+
 
 }

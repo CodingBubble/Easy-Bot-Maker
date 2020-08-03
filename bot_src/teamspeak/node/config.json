@@ -16,6 +16,7 @@
         "args": ["{s}","Das ist die Hilfe"]
       }
     },
+
     {
       "name": "support",
       "argNum": "0",
@@ -23,7 +24,18 @@
         "name": "sendmessagetogroup",
         "args": ["Server Admin","{s} braucht die Hilfe"]
       }
+    },
+
+
+    {
+      "name": "ruhe",
+      "argNum": "0",
+      "action": {
+        "name": "addservergroup",
+        "args": ["{s}","Normal"]
+      }
     }
+
 
   ]
 }
