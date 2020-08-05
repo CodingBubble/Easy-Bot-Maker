@@ -242,7 +242,6 @@ async function ExecuteAction (Action, Args)
 		
 			try
 			{
-				client = await teamspeak.getClientByName(Args[0]);
 				const clients = await teamspeak.clientList();
 
 				clients.forEach(client => {		
@@ -264,7 +263,7 @@ async function ExecuteAction (Action, Args)
 		case "addservergroup":
 			try
 			{
-				client = await teamspeak.getClientByName(Args[0]);
+				
 
 				const Groups = await teamspeak.serverGroupList()
 
@@ -369,19 +368,16 @@ async function ExecuteAction (Action, Args)
 			client = await teamspeak.getClientByName(Args[0]);
 			try 
 			{
-				client.kickFromServer().catch(()=>{})
+				client.kickFromServer()
 			}
 			catch {}
 			break
 
 
-		case  "banclient":	
-			try 
-			{	
-				client = await teamspeak.getClientByName(Args[0]);
-				client.ban(Args[1], Args[2]).catch(()=>{})
-				break
-			} catch {}
+		case  "banclient":		
+			client = await teamspeak.getClientByName(Args[0]);
+			client.ban(Args[1], Args[2])
+			break
 	
 
 

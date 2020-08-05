@@ -77,9 +77,12 @@
 .box div:nth-child(10)
 {
   top: 20%;
-  left: 80%;
+  left: 90%;
   animation: animate 5s linear infinite;
 }
+
+
+
 
 @keyframes animate {
   0%

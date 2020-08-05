@@ -1,0 +1,68 @@
+{
+
+  "Actions": [
+    {
+      "name": "SendTextMesssage",
+      "display": "Send Client <1> a private Message <2>",
+      "ArgNum": 2
+    },
+
+
+    {
+      "name": "SendMessageToGroup",
+      "ArgNum": 2,
+      "display": "Send to all Clients with the Servergroup <1> a private Message <2>"
+    },
+
+
+    {
+      "name": "SendMessageToAll",
+      "ArgNum": 1,
+      "display": "Send a private Message <1> to all Clients on the Server"
+    },
+
+
+    {
+      "name": "AddMessageToAll",
+      "ArgNum": 2,
+      "display": "Add the Client <1> to the Servergroup <2>"
+    },
+
+    {
+      "name": "RemoveServerGroup",
+      "ArgNum": 2,
+      "display": "Remove the Client <1> from the Servergroup <2>"
+    },
+
+    {
+      "name": "MoveClientToChannel",
+      "ArgNum": 2,
+      "display": "Move the Client <1> to the Channel <2>"
+    },
+
+
+    {
+      "name": "KickClientFromChannel",
+      "ArgNum": 1,
+      "display": "Move the Client <1> to the Default Channel"
+    },
+
+    {
+      "name": "KickClientFromServer",
+      "ArgNum": 1,
+      "display": "Kick the Client <1> from the Server"
+    },
+
+    {
+      "name": "BanClient",
+      "ArgNum": 3,
+      "display": "Ban the Client <1> with the Reason <2> for <3> Seconds from the Server"
+    }
+
+
+
+
+
+  ]
+
+}
