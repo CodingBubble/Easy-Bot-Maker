@@ -15,8 +15,7 @@ const CommandEntryPrefab ='<div class="Command">                                
                         </select><br>                                                 \
                         <div id="CommandActionArgs[ID]">  </div>                         \
                   </div><button class="AddButton" onclick="RemCommandEntry(CommandAction[ID])">-</button>                                                          \
-                  </div>                                                        \
-    \
+                  </div> \
 ';
 
 
@@ -34,7 +33,7 @@ const ActionDisplayInputPrefab = ' <input id="ActionArg[ACTION]|[ID]"> '
 
 
 
-
+const ExistingCommands = []
 
 
 
@@ -54,24 +53,49 @@ function AddCommandEntry()
   Command = Command.replace(/\[ID\]/g, CommandID.toString());
   Command = Command.replace(/\[ACTIONS\]/g, ActionOptions.join(""));
 
-  CommandElement.innerHTML += Command;
-  document.getElementById("CommandAction"+CommandID.toString()).addEventListener('change', function (){UpdateCommand(this,CommandID)}, false);
-  UpdateCommand(document.getElementById("CommandAction"+CommandID.toString()),CommandID )
+  CommandElement.appendChild(createElementFromHTML(Command));
+  document.getElementById("CommandAction"+CommandID.toString()).addEventListener('change', function (){UpdateCommand(this)}, false);
+  UpdateCommand(document.getElementById("CommandAction"+CommandID.toString()) )
+  ExistingCommands.push(CommandID)
+  CommandID++;
+
 }
 
 
 
 
-function UpdateCommand(El,ID)
+function UpdateCommand(El)
 {
   var selectedOption = El.options[El.selectedIndex].value;
+  ID = El.id.toString().replace(/\D/g,'');
   const ArgsObj = document.getElementById("CommandActionArgs"+ID)
-  ArgsObj.innerHTML = ActionDescMap[selectedOption]
+  ArgsObj.innerHTML = ActionDescMap[selectedOption].replace(/\[ACTION\]/,ID.toString())
+}
+
+
+
+function RemCommandEntry(El)
+{
+  ID = El.id.toString().replace(/\D/g,'');
+  const ArgsObj = document.getElementById("Command"+ID).parentElement;
+  CommandElement.removeChild(ArgsObj)
+  const index = ExistingCommands.indexOf(ID);
+  if (index > -1) {
+    ExistingCommands.splice(index, 1);
+  }
 }
 
 
 
 
+
+
+
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+  return div.firstChild;
+}
 
 
 
@@ -89,7 +113,7 @@ function defineAll()
       var ActionDesc = Action.display;
       for (var i = 1; i != Action.ArgNum + 1; i++)
       {
-        ActionDesc = ActionDesc.replace(new RegExp("<"+i+">") , ActionDisplayInputPrefab.replace(/\[ID\]/), i.toString())
+        ActionDesc = ActionDesc.replace(new RegExp("<"+i+">") , ActionDisplayInputPrefab.replace(/\[ID\]/, i.toString()))
       }
 
       ActionDescMap[Action.name] = ActionDesc
