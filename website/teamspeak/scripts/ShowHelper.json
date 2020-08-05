@@ -23,7 +23,7 @@
 
 
     {
-      "name": "AddMessageToAll",
+      "name": "AddServerGroup",
       "ArgNum": 2,
       "display": "Add the Client <1> to the Servergroup <2>"
     },
