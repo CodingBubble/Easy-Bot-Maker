@@ -30,8 +30,6 @@ a
 section
 {
     width: 100%;
-    height: 100vh;
-
 }
 
 /* headerStyle */
@@ -95,30 +93,21 @@ section
 
 }
 
-<<<<<<< HEAD
+
+
+
 .navButton{
   width: 37.5%;
   height: 40%;
   float: left;
   margin-left: 8.5%;
   border-radius: 34px 34px 34px 34px;
-  -moz  -border-radius: 34px 34px 34px 34px;
+  -moz-border-radius: 34px 34px 34px 34px;
   -webkit-border-radius: 34px 34px 34px 34px;
   border: 5px solid #222245;
   background-color: rgba(34, 34, 68, 0.65);
-=======
-
-
-section
-{
-    width: 100%;
-    height: 100vh;
->>>>>>> 6488a9b61fc7e23a08f42ffe01da05de5d8dc881
 }
 
-.weAllHateFrontEnd{
-
-}
 
 .mainHeadline
 {
@@ -145,3 +134,5 @@ section
   color: #fff;
   font-size: 6vh;
 }
+
+
