@@ -34,8 +34,94 @@
         "name": "addservergroup",
         "args": ["{s}","Normal"]
       }
+    },
+
+    {
+      "name": "ruhe",
+      "argNum": "0",
+      "action": {
+        "name": "sendtextmessage",
+        "args": ["{s}","Schreibe Endruhe um Ruherang zu beenden"]
+      }
+    },
+
+
+
+    {
+      "name": "endruhe",
+      "argNum": "0",
+      "action": {
+        "name": "removeservergroup",
+        "args": ["{s}","Normal"]
+      }
+    },
+
+
+    {
+      "name": "afk",
+      "argNum": "0",
+      "action": {
+        "name": "moveclienttochannel",
+        "args": ["{s}","AFK"]
+      }
+    },
+
+
+
+    {
+      "name": "kick",
+      "argNum": "0",
+      "action": {
+        "name": "kickclientfromchannel",
+        "args": ["{s}"]
+      }
+    },
+
+    {
+      "name": "serverkick",
+      "argNum": "0",
+      "action": {
+        "name": "kickclientfromserver",
+        "args": ["{s}"]
+      }
+    },
+
+    {
+      "name": "ban",
+      "argNum": "0",
+      "action": {
+        "name": "banclient",
+        "args": ["{s}", "Der Banhammer hat gesprochen", "10"]
+      }
     }
 
+  ],
 
+
+
+  "events": [ 
+    {
+      "name": "clientconnect",
+      "condition": "",
+      "action": {
+        "name": "sendtextmessage",
+        "args": ["{s}", "Hallo und willkommen auf dem Server"]
+      }
+    },
+
+
+    {
+      "name": "clientmoved",
+      "condition": "AFK",
+      "action": {
+        "name": "sendtextmessage",
+        "args": ["{s}", "Willkommen im Afk Channel"]
+      }
+    }
   ]
+  
+
+
+
+
 }

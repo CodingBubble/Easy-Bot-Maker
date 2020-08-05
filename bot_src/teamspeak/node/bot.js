@@ -5,6 +5,8 @@ const config = require("./config.json")
 const { Command } = require("ts3-nodejs-library/lib/transport/Command")
 
 
+
+
 const teamspeak = new TeamSpeak({
   host: config.host,
   queryport: config.port, 
@@ -81,6 +83,46 @@ teamspeak.on("textmessage", async(ev) => {
 
 
 
+config.events.forEach(Eve=>{
+	teamspeak.on(Eve.name.toLowerCase(), async(ev) => {
+		
+		var sender; 
+		try 
+		{
+			sender = ev.client.propcache.clientNickname
+		} catch 
+		{
+			sender = ev.invoker.propcache.clientNickname;
+		}
+		
+		var cond = ""
+		switch (Eve.name.toLowerCase())
+		{
+			case "textmessage":
+				cond = ev.msg;
+				break
+			case "clientmoved":
+				cond = ev.channel.name
+				
+		}
+
+
+
+		if (Eve.condition=="" || Eve.condition == cond)
+		{
+			Actionargs = [...Eve["action"]["args"]]
+			for (var i=0; i!=Actionargs.length; i++)
+			{
+				Actionargs[i] = Actionargs[i].replace(new RegExp("\\{s\\}","g"), sender);
+			}
+	
+	
+			ExecuteAction(Eve["action"]["name"], Actionargs)
+		}
+
+
+	})
+})
 
 
 
@@ -90,7 +132,6 @@ teamspeak.on("textmessage", async(ev) => {
 
 function HandleCommand(Command, Args, Sender)
 {
-	console.log(Command)
 	config.commands.forEach(command => {	
 			if (command["name"] == Command)
 			{
@@ -113,43 +154,236 @@ function HandleCommand(Command, Args, Sender)
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 async function ExecuteAction (Action, Args)
 {
 
 	Action = Action.toLowerCase()
-	if (Action == "sendtextmessage")
+
+	var client;
+
+	switch (Action)
 	{
-		const client = await teamspeak.getClientByName(Args[0]);
+
+
 		
-		client.message(Args[1])
-	}
+
+		case "sendtextmessage":	
+			client = await teamspeak.getClientByName(Args[0]);	
+			client.message(Args[1])
+			break
 
 
+		case "sendmessagetogroup":	
+		
+			try
+			{
+				const clients = await teamspeak.clientList();
+				const group = Args[0];
 
-	if (Action == "sendmessagetogroup")
-	{
-		const clients = await teamspeak.clientList();
-		const group = Args[0];
+				clients.forEach(client => {
+					client.servergroups.forEach(async(GroupId)=>{
+						const Group = await teamspeak.getServerGroupById(GroupId);
+						GroupName = Group.name;				
+						if (client.propcache.clientType==0 && group==GroupName)
+						{		
+							client.message(Args[1])
+						}
+					})
 
-		clients.forEach(client => {
-			client.servergroups.forEach(async(GroupId)=>{
-				const Group = await teamspeak.getServerGroupById(GroupId);
-				GroupName = Group.name;				
-				if (client.propcache.clientType==0 && group==GroupName)
-				{		
-					client.message(Args[1])
+				})
+			}
+			catch 
+			{
+
+			}
+
+			break
+	
+			
+			case "sendmessagetoall":	
+		
+			try
+			{
+				const clients = await teamspeak.clientList();
+
+				clients.forEach(client => {		
+					if (client.propcache.clientType==0)
+					{		
+						client.message(Args[0])
+					}
+				})
+			}
+			catch 
+			{
+
+			}
+
+			break
+	
+
+
+		case "addservergroup":
+			try
+			{
+				
+
+				const Groups = await teamspeak.serverGroupList()
+
+				Group = null
+
+				Groups.forEach(g => {
+					if (g.name==Args[1] && g.type==1)
+					{
+						Group = g
+					}
+				})
+
+				if (Group != null)
+				{
+					try 
+					{
+						Group.addClient(client).catch(()=>{})
+					}
+					catch{}
 				}
-			})
+			} 
+			catch
+			{
 
-		})
+			}
+			break
+
+	
+
+		case "removeservergroup":	
+			try
+			{
+				client = await teamspeak.getClientByName(Args[0]);
+				const Groups = await teamspeak.serverGroupList()
+				Group = null
+				Groups.forEach(g => {
+					if (g.name==Args[1] && g.type==1)
+					{
+						Group = g						
+					}
+
+				})
+
+				if (Group != null)
+				{
+					try 
+					{
+						client.delGroups(Group).catch(()=>{})
+					}
+					catch (e) {console.log(e)}
+				}
+			} 
+			catch {}
+			break
+
+
+
+
+		case "moveclienttochannel":
+			try 
+			{
+				client = await teamspeak.getClientByName(Args[0]);
+				const Channels = await teamspeak.channelList()
+				var channel = null
+				Channels.forEach(c => {
+					if (c.name==Args[1])
+					{
+						channel = c
+						
+					}
+
+				})
+
+				if (channel != null)
+				{
+					try 
+					{
+						client.move(channel).catch(()=>{})
+					}
+					catch (e) {console.log(e)}
+				}
+			}
+			catch {}	
+			break	 
+		
+
+
+		case  "kickclientfromchannel":
+			client = await teamspeak.getClientByName(Args[0]);
+			try 
+			{
+				client.kickFromChannel().catch(()=>{})
+			}
+			catch {}
+			break
+
+	
+
+
+
+		case  "kickclientfromserver":
+			client = await teamspeak.getClientByName(Args[0]);
+			try 
+			{
+				client.kickFromServer()
+			}
+			catch {}
+			break
+
+
+		case  "banclient":		
+			client = await teamspeak.getClientByName(Args[0]);
+			client.ban(Args[1], Args[2])
+			break
+	
+
+
 	}
 
-	if (Action == "addservergroup")
-	{
-		const client = await teamspeak.getClientByName(Args[0]);
-		console.log(Args)
-		client.addGroups(Args[1])
-	}
+	
 
 
 }
