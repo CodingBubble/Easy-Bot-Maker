@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+
+
+  <head>
+    <meta charset="utf-8">
+    <title>Easy Bot Maker</title>
+    <link rel="stylesheet" href="../style/main.css">
+    <link rel="stylesheet" href="../style/formular.css">
+    <script type="text/javascript" src="scripts/teamspeak_parser.js"></script>
+
+  </head>
+
+
+
+  <body>
+    <header>
+      <nav class="topNavbar">
+        <ul class="headerList">
+          <li class="headerListItem">
+            <a href="#">
+              <img src="" alt="">
+            </a>
+          </li>
+          <li>
+            <a href="../">
+
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+
+
+    <section>
+      <div class="mainBackgroundWrapper">
+
+
+
+
+
+
+
+
+
+
+
+        <div class="FormDiv">
+
+            <h1 class="FormHeadline"> Teamspeak Bot </h1>
+
+            <div class="Formular">
+
+              <div class="serverdata">
+
+                <label for="Host"> Hostname of Your Server: </label>
+                <input type="text" placeholder="Servername" id="Host">
+                <br>
+
+                <label for="ServerQueryName"> Name of the Server Query: </label>
+                <input type="text" placeholder="Server Query Name" id="ServerQueryName">
+                <br>
+
+                <label for="ServerQueryPass"> Password of the Server Query: </label>
+                <input type="password" placeholder="Server Query Password" id="ServerQueryPass">
+                <br>
+
+                <label for="Port"> Port of the Server Query: </label>
+                <input type="text" placeholder="Server Query Port" value="10011" id="Port">
+                <br>
+
+                <label for="Nickname"> Displayed Nickname for the Bot: </label>
+                <input type="text" placeholder="Nickname"  id="Nickname">
+                <br>
+
+              </div>
+              <br>
+              <br>
+
+
+
+
+
+              <div class="Outer">
+                <div class="commands" id="commands">
+                  <b> Commands: </b>
+                  <br><br>
+
+
+
+
+
+
+
+                </div>
+                <br><br>
+                <button class="AddButton" onclick="AddCommandEntry()">+</button>
+              </div>
+
+
+
+
+            </div>
+
+
+
+
+
+
+            <br><br><br><br><br><br><br><br>  <br><br><br><br><br><br><br><br>
+        </div>
+
+
+    </section>
+
+  </body>
+</html>

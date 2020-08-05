@@ -1,0 +1,92 @@
+
+.FormDiv
+{
+  height: 100%;
+  width: 70%;
+  margin: auto;
+  background-color: white;
+  border-style: solid;
+  border-width: thin;
+  border-color: #444;
+  box-shadow: 0 0 7px 3px;
+  overflow:auto;
+  padding: 5%;
+  z-index: 3;
+  text-align: center;
+}
+
+
+.FormHeadline
+{
+  font-size: 6vh;
+  margin-top: 3vh;
+  color: #224;
+  margin-bottom: 5vh;
+}
+
+.Formular
+{
+    font-size: 3vh;
+}
+
+input
+{
+    font-size: 2vh;
+
+}
+
+select
+{
+  font-size: 2vh;
+}
+
+.serverdata
+{
+  text-align: left;
+  padding: 10%
+}
+
+
+
+
+.serverdata input
+{
+  float: right;
+  width: 30%;
+}
+.serverdata label
+{
+  float left;
+}
+
+
+
+.Outer
+{
+  width: 90%;
+  box-shadow: 0 0 1px 1px;
+  height: auto;
+  margin: auto;
+  padding: 2%;
+}
+
+.AddButton
+{
+    background-color: transparent;
+    font-size: 3vh;
+    box-shadow: 0 0 0px 0px;
+    border-style: none;
+    color: #224;
+}
+
+
+.Command
+{
+  background-color: lightblue;
+  margin-top: 6vh;
+}
+
+.Action
+{
+  background-color: lightgreen;
+}
