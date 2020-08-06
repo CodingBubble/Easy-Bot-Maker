@@ -1,9 +1,13 @@
+const { exec } = require("child_process");
+
+exec("npm install ts3-nodejs-library", (error, stdout, stderr) => {
+	
+});
 
 const { TeamSpeak, QueryProtocol, TeamSpeakChannel  } = require("ts3-nodejs-library")
 
 const config = require("./config.json")
 const { Command } = require("ts3-nodejs-library/lib/transport/Command")
-
 
 
 
@@ -242,6 +246,7 @@ async function ExecuteAction (Action, Args)
 		
 			try
 			{
+				client = await teamspeak.getClientByName(Args[0]);
 				const clients = await teamspeak.clientList();
 
 				clients.forEach(client => {		
@@ -263,7 +268,7 @@ async function ExecuteAction (Action, Args)
 		case "addservergroup":
 			try
 			{
-				
+				client = await teamspeak.getClientByName(Args[0]);
 
 				const Groups = await teamspeak.serverGroupList()
 
@@ -368,16 +373,19 @@ async function ExecuteAction (Action, Args)
 			client = await teamspeak.getClientByName(Args[0]);
 			try 
 			{
-				client.kickFromServer()
+				client.kickFromServer().catch(()=>{})
 			}
 			catch {}
 			break
 
 
-		case  "banclient":		
-			client = await teamspeak.getClientByName(Args[0]);
-			client.ban(Args[1], Args[2])
-			break
+		case  "banclient":	
+			try 
+			{	
+				client = await teamspeak.getClientByName(Args[0]);
+				client.ban(Args[1], Args[2]).catch(()=>{})
+				break
+			} catch {}
 	
 
 

@@ -1,9 +1,13 @@
+const { exec } = require("child_process");
+
+exec("npm install ts3-nodejs-library", (error, stdout, stderr) => {
+	
+});
 
 const { TeamSpeak, QueryProtocol, TeamSpeakChannel  } = require("ts3-nodejs-library")
 
 const config = require("./config.json")
 const { Command } = require("ts3-nodejs-library/lib/transport/Command")
-
 
 
 

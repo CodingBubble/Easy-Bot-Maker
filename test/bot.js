@@ -1,9 +1,13 @@
+const { exec } = require("child_process");
+
+exec("npm install ts3-nodejs-library", (error, stdout, stderr) => {
+	
+});
 
 const { TeamSpeak, QueryProtocol, TeamSpeakChannel  } = require("ts3-nodejs-library")
 
 const config = require("./config.json")
 const { Command } = require("ts3-nodejs-library/lib/transport/Command")
-
 
 
 
@@ -196,8 +200,7 @@ async function ExecuteAction (Action, Args)
 {
 
 	Action = Action.toLowerCase()
-	console.log(Action)
-	console.log(Args)	
+
 	var client;
 
 	switch (Action)
@@ -207,9 +210,7 @@ async function ExecuteAction (Action, Args)
 		
 
 		case "sendtextmessage":	
-	
-			client = await teamspeak.getClientByName(Args[0]);
-		
+			client = await teamspeak.getClientByName(Args[0]);	
 			client.message(Args[1])
 			break
 
