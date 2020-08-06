@@ -1,0 +1,1 @@
+{"host":"localhost","login":"serverbot","password":"ifCoUeEE","name":"Serverbot","port":"10011","commands":[{"name":"help","argNum":"0","action":{"name":"SendTextMessage","args":["{s}","Das ist die Hilfe"]}}],"events":[{"name":"ClientConnect","condition":"","action":{"name":"SendTextMessage","args":["{s}","Willkommen auf dem Server"]}}]}

@@ -81,6 +81,17 @@ select
     color: #224;
 }
 
+.SubButton
+{
+    background-color: transparent;
+    font-size: 3vh;
+    box-shadow: 0 0 0px 0px;
+    border-style: none;
+    color: #224;
+    float: right;
+    margin-right: 1%;
+}
+
 
 .Command
 {
@@ -96,10 +107,10 @@ select
 
 
 
-.mainBackgroundWrapper
+.DownloadButton
 {
-  
+  background-color: transparent;
+  font-size: 3vh;
+  color: #444;
 }
-
-
 

@@ -2,7 +2,7 @@
 
   "Actions": [
     {
-      "name": "SendTextMesssage",
+      "name": "SendTextMessage",
       "display": "Send Client <1> a private Message <2>",
       "ArgNum": 2
     },
@@ -63,6 +63,37 @@
 
 
 
+  ],
+
+
+
+  "Events": [
+    {
+      "name": "ClientConnect",
+      "ArgNum": 0,
+      "display": "When a Client Connects to the Server"
+    },
+
+
+    {
+      "name": "ClientDisconnect",
+      "ArgNum": 0,
+      "display": "When a Client Disconnects from the Server"
+    },
+
+    {
+      "name": "ClientMoved",
+      "ArgNum": 1,
+      "display": "When a Client gets moved to the Channel <>"
+    }
+
   ]
+
+
+
+
+
+
+
 
 }
