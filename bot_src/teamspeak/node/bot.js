@@ -210,16 +210,21 @@ async function ExecuteAction (Action, Args)
 		
 
 		case "sendtextmessage":	
-			client = await teamspeak.getClientByName(Args[0]);	
-			client.message(Args[1])
-			break
+			try
+			{
+				client = await teamspeak.getClientByName(Args[0]).catch(()=>{});	
+				client.message(Args[1])
+				break
+			}
+			catch {}
+
 
 
 		case "sendmessagetogroup":	
 		
 			try
 			{
-				const clients = await teamspeak.clientList();
+				const clients = await teamspeak.clientList().catch(()=>{});
 				const group = Args[0];
 
 				clients.forEach(client => {
@@ -246,7 +251,7 @@ async function ExecuteAction (Action, Args)
 		
 			try
 			{
-				client = await teamspeak.getClientByName(Args[0]);
+				client = await teamspeak.getClientByName(Args[0]).catch(()=>{});
 				const clients = await teamspeak.clientList();
 
 				clients.forEach(client => {		
@@ -268,7 +273,7 @@ async function ExecuteAction (Action, Args)
 		case "addservergroup":
 			try
 			{
-				client = await teamspeak.getClientByName(Args[0]);
+				client = await teamspeak.getClientByName(Args[0]).catch(()=>{});
 
 				const Groups = await teamspeak.serverGroupList()
 
@@ -301,7 +306,7 @@ async function ExecuteAction (Action, Args)
 		case "removeservergroup":	
 			try
 			{
-				client = await teamspeak.getClientByName(Args[0]);
+				client = await teamspeak.getClientByName(Args[0]).catch(()=>{});
 				const Groups = await teamspeak.serverGroupList()
 				Group = null
 				Groups.forEach(g => {
@@ -330,7 +335,7 @@ async function ExecuteAction (Action, Args)
 		case "moveclienttochannel":
 			try 
 			{
-				client = await teamspeak.getClientByName(Args[0]);
+				client = await teamspeak.getClientByName(Args[0]).catch(()=>{});
 				const Channels = await teamspeak.channelList()
 				var channel = null
 				Channels.forEach(c => {
