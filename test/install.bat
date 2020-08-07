@@ -1,0 +1,1 @@
+npm install ts3-nodejs-library
